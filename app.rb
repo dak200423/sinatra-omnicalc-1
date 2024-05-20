@@ -26,3 +26,14 @@ get("/square/results") do
 
   erb(:square_results)
 end
+
+get("/square_root/new") do
+  erb(:new_square_root_calc)
+end
+
+get("/square_root/results") do
+  @the_num = params.fetch("users_square_root").to_f
+  @the_result = @the_num ** (1/2.0)
+
+  erb(:square_root_results)
+end
