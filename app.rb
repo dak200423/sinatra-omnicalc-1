@@ -60,3 +60,10 @@ end
 get("/random/new") do
   erb(:new_random_calc)
 end
+
+get("/random/results") do
+  @minimum = params.fetch("users_min").to_f
+  @maximum = params.fetch("users_max").to_f
+  @random_num = rand(@minimum..@maximum)
+  erb(:random_results)
+end
