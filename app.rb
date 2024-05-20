@@ -44,10 +44,12 @@ get("/payment/new") do
 end
 
 get("/payment/results") do
-  @apr = params.fetch("users_apr")
-  @interest_rate = @apr.to_f / (100/12)
+  @apr = params.fetch("users_apr").to_i
+  @interest_rate = (@apr.to_f / 100)/12
   @present_value = params.fetch("users_principal").to_f
-  @periods = params.fetch("users_years").to_i * 12
+  @num_years = params.fetch("users_years").to_i
+  @periods = @num_years * 12
+  
   @numerator = @interest_rate * @present_value
   @denominator = 1 - ((1 + @interest_rate) ** (-@periods))
   @result = @numerator / @denominator

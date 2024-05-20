@@ -12,21 +12,21 @@
     Number of years
   </dt>
   <dd>
-    <%= @periods %>
+    <%= @num_years %>
   </dd>
 
   <dt>
     Principal
   </dt>
   <dd>
-    $<%= @present_value %>
+    <%= @present_value.to_fs(:currency, { :precision => 2 }) %>
   </dd>
 
   <dt>
     Payment
   </dt>
   <dd>
-    $<%= @result %>
+    <%= @result.to_fs(:currency, { :precision => 2 }) %>
   </dd>
 </dl>
 
