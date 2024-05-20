@@ -1,6 +1,7 @@
 require "sinatra"
 require "sinatra/reloader"
 
+
 get("/") do
   "
   <h1>Welcome to your Sinatra App!</h1>
@@ -43,9 +44,13 @@ get("/payment/new") do
 end
 
 get("/payment/results") do
-  @interest_rate = params.fetch("users_apr").to_f / (100/12)
+  @apr = params.fetch("users_apr")
+  @interest_rate = @apr.to_f / (100/12)
+  @present_value = params.fetch("users_principal").to_f
   @periods = params.fetch("users_years").to_i * 12
-  @numerator = @interest_rate
+  @numerator = @interest_rate * @present_value
   @denominator = 1 - ((1 + @interest_rate) ** (-@periods))
   @result = @numerator / @denominator
+
+erb(:payment_results)
 end
