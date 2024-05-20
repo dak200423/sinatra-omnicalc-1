@@ -41,3 +41,11 @@ end
 get("/payment/new") do
   erb(:new_payment_calc)
 end
+
+get("/payment/results") do
+  @interest_rate = params.fetch("users_apr").to_f / (100/12)
+  @periods = params.fetch("users_years").to_i * 12
+  @numerator = @interest_rate
+  @denominator = 1 - ((1 + @interest_rate) ** (-@periods))
+  @result = @numerator / @denominator
+end
